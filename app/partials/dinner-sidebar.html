@@ -1,4 +1,4 @@
-People: <input type="number" ng-model="numberOfGuests" ng-change="setNumberOfGuest(numberOfGuests)"/>
+
 
 <!-- TODO in Lab 5: Display the items on the menu with cost for each -->
 
@@ -6,4 +6,54 @@ People: <input type="number" ng-model="numberOfGuests" ng-change="setNumberOfGue
 <!-- Displaying number of guests both in input box and here is redundant. It is here only for the example
 purpose so you can see how some information from the model can be retrieved. In Lab 5 you will replace 
 this with Total price of the menu -->
-Total number of guest: {{getNumberOfGuests()}}
+
+    <!-- View 2 -->
+    <div id="sidebarView">
+        <div class="col-md-4">
+            <div>
+                <h3>My Dinner</h3> Edit number of guests :
+                <input type="number" id="setNumberOfGuests" ng-model="numberOfGuests" ng-change="setNumberOfGuest(numberOfGuests)" value="1" min="1" />
+
+            </div>
+
+            <table class="table" id="menu-table">
+                <thead>
+                    <th>Dish Name</th>
+                    <th>Cost</th>
+                </thead>
+                <tbody class="table-striped">
+                    <tr id="starterRow">
+                        <td id="starterName"></td>
+                        <td id="starterCost"></td>
+                        <td>
+                            <button id="removeStarterX" class="btn btn-xs btn-danger">x</button>
+                        </td>
+                    </tr>
+                    <tr id="mainRow">
+                        <td id="mainName"></td>
+                        <td id="mainCost"></td>
+                        <td>
+                            <button id="removeMainX" class="btn btn-xs btn-danger">x</button>
+                        </td>
+                    </tr>
+                    <tr id="dessertRow">
+                        <td id="dessertName"></td>
+                        <td id="dessertCost"></td>
+                        <td>
+                            <button id="removeDessertX" class="btn btn-xs btn-danger">x</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="total_text" style="text-align:left">Total Amount</td>
+                        <td id="total" style="text-align:right">SEK</td>
+                        <td id="totalPrice"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div></div>
+            <div align="right">
+                <button id="confirmButton" class="btn btn-warning">Confirm Dinner</button>
+            </div>
+        </div>
+    </div>

@@ -5,7 +5,7 @@
 // the next time.
 dinnerPlannerApp.factory('Dinner',function ($resource) {
   
-  var numberOfGuest = 2;
+  var numberOfGuest = 1;
 
 
   this.setNumberOfGuests = function(num) {
@@ -29,7 +29,6 @@ dinnerPlannerApp.factory('Dinner',function ($resource) {
   this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key:'sV1fPGQKrO0b6oUYb6w9kLI8BORLiWox'}); 
 
   //Each menu has only one dich of a type (starter, main dish and dessert)
-  var numberOfGuests = 1;
   this.menuOptions = [];
 
   this.Appetizer;

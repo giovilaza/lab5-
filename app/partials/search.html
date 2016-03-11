@@ -3,17 +3,54 @@
 
 <!-- TODO in Lab 5: Display the input box for search (you can ignore the type dropdown since BigOven does
 not support it in free version) and list all the dishes that match the search. -->
-<input ng-model="query"/>
-<button ng-click="search(query)">Find</button>
-{{status}}
-<ul>
- <li ng-repeat="dish in dishes">
- <br>
- <img ng-src="{{dish.ImageURL}}"/>
- {{dish.Title}}
- <br>
- <a ng-href="#/dish/{{dish.RecipeID}}">View more</a>
- {{dish.Category}} {{dish.Subcategory}}
- </li>
-</ul>
+
+<!-- View 3 -->
+
+    <div class="col-md-offset-4" id="searchbar">
+
+        <table class="table">
+            <thead>
+                <th>
+                    <h3>Search Dish</h3></th>
+                <th>
+                    <form role="form">
+
+                        <!-- <label for="searchDish">SELECT DISH</label> -->
+
+                        <input type="keyword" class="form-control" id="searchDish" placeholder="Enter keyword" ng-model="query"/>
+						<button ng-click="search(query)">Find</button>
+						{{status}}
+						<ul>
+						 <li ng-repeat="dish in dishes">
+						 <br>
+						 <img ng-src="{{dish.ImageURL}}"/>
+						 {{dish.Title}}
+						 <br>
+						 <a ng-href="#/dish/{{dish.RecipeID}}">View more</a>
+						 {{dish.Category}} {{dish.Subcategory}}
+						 </li>
+						</ul>
+
+                    </form>
+                </th>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div id="selectDishView" style="display:none;" class="col-md-offset-4">
+
+        <div class="container">
+            <div class="col-md-9">
+                <div class="centered">
+                    <div id="starters"> </div>
+                    <div id="main"> </div>
+                    <div id="desserts"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
