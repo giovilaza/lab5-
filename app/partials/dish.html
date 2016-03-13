@@ -1,5 +1,62 @@
 <!-- We include the sidebar as it is shared across two screens. -->
 <ng-include src="'partials/dinner-sidebar.html'" ng-controller="DinnerCtrl"></ng-include>
 
+
+
 <!-- TODO in Lab 5: Display the dish information including image, Description, 
 Instructions, Ingredients and total cost. -->
+
+<!-- Dish Description -->
+<div class="col-md-offset-4" id="dishDescriptionView">
+
+    <div class="col-md-6">
+
+        <div></div>
+
+        <h3>{{dish.Title}}</h3> </br>
+        <img class="img-responsive" style="width:256px;height:256px;" id="dishImage" ng-src="{{dish.ImageURL}}" />
+        <br>
+        <br>
+
+        <h3>PREPARATION</h3>
+        <div>
+            {{dish.Instructions}}</div>
+        <br>
+        <br>
+
+        <a ng-href="#/search">
+            <button class="btn btn-primary" type="button">
+                Back to Select Dish
+            </button>
+
+        </a>
+
+
+    </div>
+
+    <div class="col-md-offset-7">
+        <h3>Ingredients for</h3>
+
+        <ul>
+            <li ng-repeat="ingredient in dish.Ingredients" ng-init="setTotals(ingredient)">
+                <b>Name :</b> {{ingredient.Name}}
+                <b>Quantity :</b> {{ingredient.Quantity}}
+
+                <b>Unit : </b>{{ingredient.Unit}}
+                <b>Price : </b>{{ingredient.Quantity * 1}} Sek
+            </li>
+            <span class="pull-right">
+					<h4>Total : {{total| number:2}} Sek</h4>
+				</span>
+        </ul>
+
+        <br>
+        <br>
+        <div style="padding-left:0px;">
+
+            <button class="btn btn-success" type="button" ng-click="addDish(dish,(total| number:2))">
+                Confirm Dish
+            </button>
+
+        </div>
+    </div>
