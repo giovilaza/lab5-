@@ -40,9 +40,9 @@ dinnerPlannerApp.factory('Dinner', function ($resource) {
     //Each menu has only one dich of a type (starter, main dish and dessert)
     this.menuOptions = [];
 
-    this.Appetizer;
-    this.MD;
-    this.desserts;
+    this.Appetizer = null;
+    this.MD = null;
+    this.desserts = null;
 
 
     this.Appetizersprice = 0;
@@ -64,37 +64,35 @@ dinnerPlannerApp.factory('Dinner', function ($resource) {
     //Adds the passed dish number to the menu. If the dish of that type already exists on the menu
     //it is removed from the menu and the new one added.
     this.addDishToMenu = function (dish, price) {
-        console.log("Entered Add Dish to Menu");
-        console.log("Dish Cateogory", dish.Category);
-        console.log("Dish Price", price);
+
         //replace in the manu the dish of this type
         this.menuOptions[dish.Category] = dish.RecipeID;
 
         for (x = 0; x < 3; x++) {
-            console.log("Entered for");
+
             if ((this.check[x] == 0) && (x == 0)) {
                 this.Appetizersprice = price;
                 this.Appetizer = dish;
                 this.check[x] = 1;
-                console.log("Added Appetizer");
+
                 break;
 
             } else if ((this.check[x] == 0) && (x == 1)) {
                 this.MDprice = price;
                 this.MD = dish;
-                console.log("Added MD");
+
                 this.check[x] = 1;
                 break;
             } else if ((this.check[x] == 0) && (x == 2)) {
                 this.dessertsprice = price;
                 this.desserts = dish;
-                console.log("Added Dessert");
+
                 this.check[x] = 1;
                 break;
             } else {
-                console.log("Menu Full")
+                console.log("Menu Full");
             }
-            console.log("Dish added ", dish.Title);
+
 
 
         }
@@ -102,6 +100,23 @@ dinnerPlannerApp.factory('Dinner', function ($resource) {
 
     }
 
+    this.getAppetizer = function () {
+        if (this.Appetizer != null) {
+            return this.Appetizer;
+        }
+    }
+
+    this.getMD = function () {
+        if (this.MD != null) {
+            return this.MD;
+        }
+    }
+
+    this.getdesserts = function () {
+        if (this.desserts != null) {
+            return this.desserts;
+        }
+    }
 
 
     //Returns the dish number that is on the menu for selected type 
@@ -111,12 +126,12 @@ dinnerPlannerApp.factory('Dinner', function ($resource) {
 
     //Returns all the dishes on the menu.
     this.getFullMenu = function () {
-        console.log("Entered full menu")
+
         var fullMenu = [];
         fullMenu[0] = this.Appetizer;
         fullMenu[1] = this.MD;
         fullMenu[2] = this.desserts;
-
+        
         return fullMenu;
     }
 
@@ -153,8 +168,9 @@ dinnerPlannerApp.factory('Dinner', function ($resource) {
         }
         return dishPrice;
     }
+
+
     this.getDishPrice2 = function (cat) {
-        console.log("category = ", cat);
         var dishPrice = 0;
         if (cat == "Appetizers") {
             dishPrice = this.Appetizersprice;
@@ -207,15 +223,44 @@ dinnerPlannerApp.factory('Dinner', function ($resource) {
 
         if (type == "Appetizers") {
             this.Appetizersprice = 0;
-            this.Appetizer = {};
+            this.Appetizer = null;
         } else if (type == "Main Dish") {
             this.MDprice = 0;
-            this.MD = {};
+            this.MD = null;
         } else if (type == "Desserts") {
             this.dessertsprice = 0;
-            this.desserts = {};
+            this.desserts = null;
         }
     }
+
+    this.removeDish = function (dish) {
+        console.log(this.Appetizer+"|"+this.MD+"|"+this.desserts);
+        if (this.Appetizer != null) {
+            if (dish.RecipeID == this.Appetizer.RecipeID) {
+                this.Appetizer = null;
+                this.Appetizersprice = 0;
+                this.check[0]=0;
+                console.log("removed1");
+            }
+        }
+        if (this.MD != null) {
+            if (dish.RecipeID == this.MD.RecipeID) {
+                this.MD = null;
+                this.MDprice = 0;
+                this.check[1]=0;
+                console.log("removed2");
+            }
+        }
+        if (this.desserts != null) {
+            if (dish.RecipeID == this.desserts.RecipeID) {
+                this.desserts = null;
+                this.dessertsprice = 0;
+                this.check[2]=0;
+                console.log("removed3");
+            }
+        }
+    }
+
 
     this.setClickedDish = function (id) {
         selectedDish = id;
@@ -225,7 +270,16 @@ dinnerPlannerApp.factory('Dinner', function ($resource) {
         return selectedDish;
     }
 
+    this.notFull = function() {
+        if (this.check[2] == 1) {
 
+            return false;
+        }
+        else {
+
+            return true;
+        }
+    }
 
 
 

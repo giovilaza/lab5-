@@ -1,0 +1,20 @@
+
+
+<div class="row well">
+	My Dinner: {{getNumberOfGuests()}} people
+	<a href="#/search" class="btn btn-primary">Go back and edit dinner</a>
+</div>
+
+
+<div class="row well">
+	<div style="clear:both;" ng-repeat="dish in fullMenu">
+		<div style="display:block;float:left;width:45%;padding-right:5px;">	
+			<img style="float:left;height:140px;width:140px;margin-right:10px;margin-bottom:20px;" ng-src="{{dish.ImageURL}}"/>
+			<span style="font-weight:bold;">{{dish.Title}}</span> <span style="color:#ccc;">({{dish.Category}})</span> <br/>
+			<span style="color:#444;">{{dish.Description}}</span>	
+		</div>
+		<div style="float:left;width:55%;border-left:1px solid #ddd;padding-left:15px;margin-bottom:20px;">
+			<span style="font-weight:bold;">Preparation</span></br>
+			{{dish.Instructions}}
+	</div>
+</div>

@@ -8,7 +8,6 @@ purpose so you can see how some information from the model can be retrieved. In 
 this with Total price of the menu -->
 
     <!-- View 2 -->
-    <div id="sidebarView">
         <div class="col-md-4">
             <div>
                 <h3>My Dinner</h3> Edit number of guests :
@@ -23,24 +22,24 @@ this with Total price of the menu -->
                 </thead>
                 <tbody class="table-striped">
                     <tr id="starterRow">
-                        <td id="starterName"></td>
+                        <td id="starterName">{{dish1.Title}}</td>
                         <td id="starterCost"></td>
                         <td>
-                            <button id="removeStarterX" class="btn btn-xs btn-danger">x</button>
+                            <button id="removeStarterX" class="btn btn-xs btn-danger" ng-click="removeDish(dish1)">x</button>
                         </td>
                     </tr>
                     <tr id="mainRow">
-                        <td id="mainName"></td>
+                        <td id="mainName">{{dish2.Title}}</td>
                         <td id="mainCost"></td>
                         <td>
-                            <button id="removeMainX" class="btn btn-xs btn-danger">x</button>
+                            <button id="removeMainX" class="btn btn-xs btn-danger" ng-click="removeDish(dish2)">x</button>
                         </td>
                     </tr>
                     <tr id="dessertRow">
-                        <td id="dessertName"></td>
+                        <td id="dessertName">{{dish3.Title}}</td>
                         <td id="dessertCost"></td>
                         <td>
-                            <button id="removeDessertX" class="btn btn-xs btn-danger">x</button>
+                            <button id="removeDessertX" class="btn btn-xs btn-danger" ng-click="removeDish(dish3)">x</button>
                         </td>
                     </tr>
                     <tr>
@@ -53,7 +52,9 @@ this with Total price of the menu -->
 
             <div></div>
             <div align="right">
-                <button id="confirmButton" class="btn btn-warning">Confirm Dinner</button>
+                <a ng-href="#/dinner">
+                <button id="confirmButton" ng-disabled="notFull" class="btn btn-warning">Confirm Dinner</button>
+            </a>
             </div>
         </div>
     </div>
