@@ -1,5 +1,3 @@
-
-
 <!-- TODO in Lab 5: Display the items on the menu with cost for each -->
 
 
@@ -7,54 +5,54 @@
 purpose so you can see how some information from the model can be retrieved. In Lab 5 you will replace 
 this with Total price of the menu -->
 
-    <!-- View 2 -->
-        <div class="col-md-4">
-            <div>
-                <h3>My Dinner</h3> Edit number of guests :
-                <input type="number" id="setNumberOfGuests" ng-model="numberOfGuests" ng-change="setNumberOfGuest(numberOfGuests)" value="1" min="1" />
+<!-- View 2 -->
+<div class="col-md-4">
+    <div>
+        <h3>My Dinner</h3> Edit number of guests :
+        <input type="number" id="setNumberOfGuests" ng-model="numberOfGuests" ng-change="setNumberOfGuest(numberOfGuests)" value="1" min="1" />
 
-            </div>
-
-            <table class="table" id="menu-table">
-                <thead>
-                    <th>Dish Name</th>
-                    <th>Cost</th>
-                </thead>
-                <tbody class="table-striped">
-                    <tr id="starterRow">
-                        <td id="starterName">{{dish1.Title}}</td>
-                        <td id="starterCost"></td>
-                        <td>
-                            <button id="removeStarterX" class="btn btn-xs btn-danger" ng-click="removeDish(dish1)">x</button>
-                        </td>
-                    </tr>
-                    <tr id="mainRow">
-                        <td id="mainName">{{dish2.Title}}</td>
-                        <td id="mainCost"></td>
-                        <td>
-                            <button id="removeMainX" class="btn btn-xs btn-danger" ng-click="removeDish(dish2)">x</button>
-                        </td>
-                    </tr>
-                    <tr id="dessertRow">
-                        <td id="dessertName">{{dish3.Title}}</td>
-                        <td id="dessertCost"></td>
-                        <td>
-                            <button id="removeDessertX" class="btn btn-xs btn-danger" ng-click="removeDish(dish3)">x</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="total_text" style="text-align:left">Total Amount</td>
-                        <td id="total" style="text-align:right">SEK</td>
-                        <td id="totalPrice"></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div></div>
-            <div align="right">
-                <a ng-href="#/dinner">
-                <button id="confirmButton" ng-disabled="notFull" class="btn btn-warning">Confirm Dinner</button>
-            </a>
-            </div>
-        </div>
     </div>
+
+    <table class="table" id="menu-table">
+        <thead>
+            <th>Dish Name</th>
+            <th>Cost</th>
+        </thead>
+        <tbody class="table-striped">
+            <tr id="starterRow">
+                <td id="starterName">{{dish1.Title}}</td>
+                <td id="starterCost"></td>
+                <td>
+                    <button id="removeStarterX" class="btn btn-xs btn-danger" ng-click="removeDish(dish1)">x</button>
+                </td>
+            </tr>
+            <tr id="mainRow">
+                <td id="mainName">{{dish2.Title}}</td>
+                <td id="mainCost"></td>
+                <td>
+                    <button id="removeMainX" class="btn btn-xs btn-danger" ng-click="removeDish(dish2)">x</button>
+                </td>
+            </tr>
+            <tr id="dessertRow">
+                <td id="dessertName">{{dish3.Title}}</td>
+                <td id="dessertCost"></td>
+                <td>
+                    <button id="removeDessertX" class="btn btn-xs btn-danger" ng-click="removeDish(dish3)">x</button>
+                </td>
+            </tr>
+            <tr>
+                <td id="total_text" style="text-align:left"></td>
+                <td id="total" style="text-align:right">SEK</td>
+                <td id="totalPrice">{{totalPrice * getNumberOfGuest()}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div></div>
+    <div align="right">
+        <a ng-href="#/dinner">
+            <button id="confirmButton" ng-disabled="notFull" class="btn btn-warning">Confirm Dinner</button>
+        </a>
+    </div>
+</div>
+</div>

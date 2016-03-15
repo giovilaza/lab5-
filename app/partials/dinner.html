@@ -1,9 +1,9 @@
 <div class="container">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<h3>
-					<span class="col-md-4 col-sm-5">Dinner Menu: {{getNumberOfGuests()}} People</span>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>
+					<span class="col-md-4 col-sm-5">Dinner Menu: {{ getNumberOfGuest() }} People</span>
 					<span class="col-md-1 col-md-offset-6">
 					<a ng-href="#/search">
 					<button class="btn btn-primary" type="button" ng-click="go('/search')">
@@ -12,37 +12,37 @@
 				</a>
 					</span>
 				</h3>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
 
-	<div class="container">
-	<div class="col-md-8">
-		<div class="centered">
-				<h3>Overview</h3>
-				<div ng-repeat="dish in fullMenu">
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="col-md-12 col-xs-8 thumb">
-							<a class="thumbnail">
-								<h4> {{dish.Title}} </h4>
-								<img class="imagecss" style="height:200px;" ng-src="{{dish.ImageURL}}">
-							</a>
-							<p class="price">{{dishPrice(dish)}} SEK</p>
-						</div>
-					</div>
-				</div>
+<div class="container">
+    <div class="col-md-8">
+        <div class="centered">
+            <h3>Overview</h3>
+            <div ng-repeat="dish in fullMenu">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-md-12 col-xs-8 thumb">
+                        <a class="thumbnail">
+                            <h4> {{dish.Title}} </h4>
+                            <img class="imagecss" style="height:200px;" ng-src="{{dish.ImageURL}}">
+                        </a>
+                        <p class="price">{{dishPrice(dish)}} SEK/pc</p>
+                    </div>
+                </div>
+            </div>
 
-				
-				<div class="col-md-4">
-					<a ng-href="#/preparation">
-					<button class="btn btn-success pull-right" type="button">
-						Print Full Recipe 
-					</button>
-				</a>
-				</div>
-			</div>
-		</div>
-	</div>
+
+            <div class="col-md-4">
+                <a ng-href="#/preparation">
+                    <button class="btn btn-success pull-right" type="button">
+                        Print Full Recipe
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </div>

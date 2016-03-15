@@ -28,8 +28,9 @@ dinnerPlannerApp.controller('DishCtrl', function ($scope, $routeParams, Dinner) 
         }
     }
 
-    $scope.addDish = function (dish, dishTotal) {
-        Dinner.addDishToMenu(dish, dishTotal);
+    $scope.addDish = function (dish, total) {
+        console.log("Add dish called")
+        Dinner.addDishToMenu(dish, total);
 
     }
 

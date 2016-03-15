@@ -7,7 +7,7 @@
 Instructions, Ingredients and total cost. -->
 
 <!-- Dish Description -->
-<div class="col-md-offset-4" id="dishDescriptionView">
+<div class="col-md-offset-4" id="dishDescriptionView" ng-controller="DinnerCtrl">
 
     <div class="col-md-6">
 
@@ -40,13 +40,13 @@ Instructions, Ingredients and total cost. -->
         <ul>
             <li ng-repeat="ingredient in dish.Ingredients" ng-init="setTotals(ingredient)">
                 <b>Name :</b> {{ingredient.Name}}
-                <b>Quantity :</b> {{ingredient.Quantity}}
+                <b>Quantity :</b> {{ingredient.Quantity * getNumberOfGuest()}}
 
                 <b>Unit : </b>{{ingredient.Unit}}
-                <b>Price : </b>{{ingredient.Quantity * 1}} Sek
+                <b>Price : </b>{{ingredient.Quantity * getNumberOfGuest()}} Sek
             </li>
             <span class="pull-right">
-					<h4>Total : {{total| number:2}} Sek</h4>
+					<h4>Total : {{total * getNumberOfGuest()}} Sek</h4>
 				</span>
         </ul>
 
@@ -55,10 +55,10 @@ Instructions, Ingredients and total cost. -->
         <div style="padding-left:0px;">
 
             <a ng-href="#/search">
-            <button id="confirm" class="btn btn-success" type="button" ng-click="addDish(dish,(total| number:2))">
-                Confirm Dish
-            </button>
-        </a>
+                <button id="confirm" class="btn btn-success" type="button" ng-click="addDish(dish,total)">
+                    Confirm Dish
+                </button>
+            </a>
 
         </div>
     </div>
