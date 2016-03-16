@@ -25,9 +25,7 @@ dinnerPlannerApp.controller('DinnerCtrl', function ($scope, Dinner) {
     $scope.dish2 = Dinner.getMD();
     $scope.dish3 = Dinner.getdesserts();
 
-    $scope.dishPrice = function (dish) {
-        return Dinner.getDishPrice(dish);
-    }
+
 
     $scope.removeDish = function (dish) {
 

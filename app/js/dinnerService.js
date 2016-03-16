@@ -9,12 +9,46 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
     this.x = 0;
     this.check = [0, 0, 0];
 
+    //Each menu has only one dich of a type (starter, main dish and dessert)
+    this.menuOptions = [];
+
+    this.Appetizer = null;
+    this.MD = null;
+    this.desserts = null;
+
+
+    this.Appetizersprice = 0;
+    this.MDprice = 0;
+    this.dessertsprice = 0;
+
+    var fullMenu = [];
+
+
+
+    //store the dish that was clicked
+    var selectedDish = 1;
+
+    var fullMenuIDs = [];
+
+    this.DishSearch = $resource('http://api.bigoven.com/recipes', {
+        pg: 1,
+        rpp: 5,
+        api_key: '18f3cT02U9f6yRl3OKDpP8NA537kxYKu'
+    }); //18f3cT02U9f6yRl3OKDpP8NA537kxYKu
+
+    this.Dish = $resource('http://api.bigoven.com/recipe/:RecipeID', {
+        api_key: '18f3cT02U9f6yRl3OKDpP8NA537kxYKu',
+        RecipeID: '@RecipeID'
+    }); //XKEdN82lQn8x6Y5jm3K1ZX8L895WUoXN //1hg3g4Dkwr6pSt22n00EfS01rz568IR6
+
 
     if (!$cookieStore.get('numberOfGuest')) {
         var numberOfGuest = 1;
     } else {
         var numberOfGuest = $cookieStore.get('numberOfGuest');
     };
+
+
 
     this.setNumberOfGuests = function (num) {
         numberOfGuest = num;
@@ -37,35 +71,8 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
     // a bit to take the advantage of Angular resource service
     // check lab 5 instructions for details
 
-    this.DishSearch = $resource('http://api.bigoven.com/recipes', {
-        pg: 1,
-        rpp: 5,
-        api_key: '18f3cT02U9f6yRl3OKDpP8NA537kxYKu'
-    }); //18f3cT02U9f6yRl3OKDpP8NA537kxYKu
-
-    this.Dish = $resource('http://api.bigoven.com/recipe/:RecipeID', {
-        api_key: '18f3cT02U9f6yRl3OKDpP8NA537kxYKu',
-        RecipeID: '@RecipeID'
-    }); //XKEdN82lQn8x6Y5jm3K1ZX8L895WUoXN //1hg3g4Dkwr6pSt22n00EfS01rz568IR6
-
-    //Each menu has only one dich of a type (starter, main dish and dessert)
-    this.menuOptions = [];
-
-    this.Appetizer = null;
-    this.MD = null;
-    this.desserts = null;
 
 
-    this.Appetizersprice = 0;
-    this.MDprice = 0;
-    this.dessertsprice = 0;
-
-
-
-    //store the dish that was clicked
-    var selectedDish = 1;
-
-    var fullMenuIDs = [];
 
     //create null menu for testing
     this.createMenu = function () {
@@ -89,6 +96,8 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
                 this.Appetizersprice = price;
                 this.Appetizer = dish;
                 this.check[x] = 1;
+                fullMenu[0] = this.Appetizer;
+
                 $cookieStore.put('Appetizer', this.Appetizer.RecipeID);
                 break;
 
@@ -96,16 +105,18 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
                 this.MDprice = price;
                 this.MD = dish;
                 this.check[x] = 1;
+                fullMenu[1] = this.MD;
+
                 $cookieStore.put('MD', this.MD.RecipeID);
                 break;
             } else if ((this.check[x] == 0) && (x == 2)) {
                 this.dessertsprice = price;
                 this.desserts = dish;
                 this.check[x] = 1;
+                fullMenu[2] = this.desserts;
+
                 $cookieStore.put('desserts', this.desserts.RecipeID);
                 break;
-            } else {
-
             }
 
 
@@ -139,11 +150,6 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
 
     //Returns all the dishes on the menu.
     this.getFullMenu = function () {
-
-        var fullMenu = [];
-        fullMenu[0] = this.Appetizer;
-        fullMenu[1] = this.MD;
-        fullMenu[2] = this.desserts;
 
         return fullMenu;
     }
@@ -296,9 +302,9 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
 
     var Dish = this.Dish;
 
-    if (this.check[0] != 0) {
-        // use fullMenu objects
-    } else if ($cookieStore.get('Appetizer')) {
+    //if (this.check[0] != 0) {
+    // use fullMenu objects
+    if ($cookieStore.get('Appetizer')) {
         // loop through the fullMenuID and fill the fullMenu with objects
         var AppetizerID = $cookieStore.get('Appetizer');
         //fullMenuIDs.forEach(function(id) {
@@ -309,8 +315,12 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
             RecipeID: AppetizerID
         }, function (data) {
             this.Appetizer = data;
+            fullMenu[0] = this.Appetizer;
+            //fullMenu.push(this.Appetizer);
+
 
             console.log("found:" + this.Appetizer.RecipeID);
+            console.log(this.Appetizer)
             status = "Result Found";
             //console.log(data);
         }, function (data) {
@@ -318,6 +328,57 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
         });
         //});
     }
+
+    if ($cookieStore.get('MD')) {
+        // loop through the fullMenuID and fill the fullMenu with objects
+        var MDID = $cookieStore.get('MD');
+        //fullMenuIDs.forEach(function(id) {
+        this.check[1] = 1;
+        console.log(MDID);
+        status = "Processing";
+        Dish.get({
+            RecipeID: MDID
+        }, function (data) {
+            this.MD = data;
+            fullMenu[1] = this.MD;
+            //fullMenu.push(this.Appetizer);
+
+
+            console.log("found:" + this.MD.RecipeID);
+            console.log(this.MD)
+            status = "Result Found";
+            //console.log(data);
+        }, function (data) {
+            status = "There was an error";
+        });
+    }
+    //});
+    if ($cookieStore.get('desserts')) {
+        // loop through the fullMenuID and fill the fullMenu with objects
+        var dessertsID = $cookieStore.get('desserts');
+        //fullMenuIDs.forEach(function(id) {
+        this.check[2] = 1;
+        console.log(dessertsID);
+        status = "Processing";
+        Dish.get({
+            RecipeID: dessertsID
+        }, function (data) {
+            this.desserts = data;
+            fullMenu[2] = this.desserts;
+            //fullMenu.push(this.Appetizer);
+
+
+            console.log("found:" + this.desserts.RecipeID);
+            console.log(this.desserts)
+            status = "Result Found";
+            //console.log(data);
+        }, function (data) {
+            status = "There was an error";
+        });
+        //});
+    }
+
+    //}
 
     // Angular service needs to return an object that has all the
     // methods created in it. You can consider that this is instead
