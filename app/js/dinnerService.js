@@ -64,6 +64,81 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
     }
 
 
+    if ($cookieStore.get('Appetizer')) {
+        // loop through the fullMenuID and fill the fullMenu with objects
+        var AppetizerID = $cookieStore.get('Appetizer');
+        //fullMenuIDs.forEach(function(id) {
+        this.check[0] = 1;
+        console.log(AppetizerID);
+        status = "Processing";
+        this.Dish.get({
+            RecipeID: AppetizerID
+        }, function (data) {
+            this.Appetizer = data;
+            fullMenu[0] = this.Appetizer;
+            //fullMenu.push(this.Appetizer);
+
+
+            console.log("found:" + this.Appetizer.RecipeID);
+            console.log(this.Appetizer)
+            status = "Result Found";
+            //console.log(data);
+        }, function (data) {
+            status = "There was an error";
+        });
+        //});
+    }
+
+    if ($cookieStore.get('MD')) {
+        // loop through the fullMenuID and fill the fullMenu with objects
+        var MDID = $cookieStore.get('MD');
+        //fullMenuIDs.forEach(function(id) {
+        this.check[1] = 1;
+        console.log(MDID);
+        status = "Processing";
+        this.Dish.get({
+            RecipeID: MDID
+        }, function (data) {
+            this.MD = data;
+            fullMenu[1] = this.MD;
+            //fullMenu.push(this.Appetizer);
+
+
+            console.log("found:" + this.MD.RecipeID);
+            console.log(this.MD)
+            status = "Result Found";
+            //console.log(data);
+        }, function (data) {
+            status = "There was an error";
+        });
+    }
+    //});
+    if ($cookieStore.get('desserts')) {
+        // loop through the fullMenuID and fill the fullMenu with objects
+        var dessertsID = $cookieStore.get('desserts');
+        //fullMenuIDs.forEach(function(id) {
+        this.check[2] = 1;
+        console.log(dessertsID);
+        status = "Processing";
+        this.Dish.get({
+            RecipeID: dessertsID
+        }, function (data) {
+            this.desserts = data;
+            fullMenu[2] = this.desserts;
+            //fullMenu.push(this.Appetizer);
+
+
+            console.log("found:" + this.desserts.RecipeID);
+            console.log(this.desserts)
+            status = "Result Found";
+            //console.log(data);
+        }, function (data) {
+            status = "There was an error";
+        });
+        //});
+    }
+
+
 
     // TODO in Lab 5: Add your model code from previous labs
     // feel free to remove above example code
@@ -125,20 +200,22 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
     }
 
     this.getAppetizer = function () {
-        if (this.Appetizer != null) {
-            return this.Appetizer;
-        }
+        //        if (fullMenu[0] != null) {
+        //            return fullMenu[0];
+        //        }
+
+        return this.Appetizer;
     }
 
     this.getMD = function () {
-        if (this.MD != null) {
-            return this.MD;
+        if (fullMenu[1] != null) {
+            return fullMenu[1];
         }
     }
 
     this.getdesserts = function () {
-        if (this.desserts != null) {
-            return this.desserts;
+        if (fullMenu[2] != null) {
+            return fullMenu[2];
         }
     }
 
@@ -304,79 +381,7 @@ dinnerPlannerApp.factory('Dinner', function ($resource, $cookieStore) {
 
     //if (this.check[0] != 0) {
     // use fullMenu objects
-    if ($cookieStore.get('Appetizer')) {
-        // loop through the fullMenuID and fill the fullMenu with objects
-        var AppetizerID = $cookieStore.get('Appetizer');
-        //fullMenuIDs.forEach(function(id) {
-        this.check[0] = 1;
-        console.log(AppetizerID);
-        status = "Processing";
-        Dish.get({
-            RecipeID: AppetizerID
-        }, function (data) {
-            this.Appetizer = data;
-            fullMenu[0] = this.Appetizer;
-            //fullMenu.push(this.Appetizer);
 
-
-            console.log("found:" + this.Appetizer.RecipeID);
-            console.log(this.Appetizer)
-            status = "Result Found";
-            //console.log(data);
-        }, function (data) {
-            status = "There was an error";
-        });
-        //});
-    }
-
-    if ($cookieStore.get('MD')) {
-        // loop through the fullMenuID and fill the fullMenu with objects
-        var MDID = $cookieStore.get('MD');
-        //fullMenuIDs.forEach(function(id) {
-        this.check[1] = 1;
-        console.log(MDID);
-        status = "Processing";
-        Dish.get({
-            RecipeID: MDID
-        }, function (data) {
-            this.MD = data;
-            fullMenu[1] = this.MD;
-            //fullMenu.push(this.Appetizer);
-
-
-            console.log("found:" + this.MD.RecipeID);
-            console.log(this.MD)
-            status = "Result Found";
-            //console.log(data);
-        }, function (data) {
-            status = "There was an error";
-        });
-    }
-    //});
-    if ($cookieStore.get('desserts')) {
-        // loop through the fullMenuID and fill the fullMenu with objects
-        var dessertsID = $cookieStore.get('desserts');
-        //fullMenuIDs.forEach(function(id) {
-        this.check[2] = 1;
-        console.log(dessertsID);
-        status = "Processing";
-        Dish.get({
-            RecipeID: dessertsID
-        }, function (data) {
-            this.desserts = data;
-            fullMenu[2] = this.desserts;
-            //fullMenu.push(this.Appetizer);
-
-
-            console.log("found:" + this.desserts.RecipeID);
-            console.log(this.desserts)
-            status = "Result Found";
-            //console.log(data);
-        }, function (data) {
-            status = "There was an error";
-        });
-        //});
-    }
 
     //}
 

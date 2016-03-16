@@ -21,6 +21,8 @@ dinnerPlannerApp.controller('DinnerCtrl', function ($scope, Dinner) {
 
     $scope.notFull = Dinner.notFull();
 
+
+
     $scope.dish1 = Dinner.getAppetizer();
     $scope.dish2 = Dinner.getMD();
     $scope.dish3 = Dinner.getdesserts();
